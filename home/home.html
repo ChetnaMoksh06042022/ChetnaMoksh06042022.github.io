@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Romantic Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            color: white;
+            background-color: #1a1a1a;
+            overflow: hidden;
+            padding-top: 60px; /* Adjust based on navbar height */
+        }
+
+        .background {
+            position: fixed;
+            top: 60px; /* Adjust based on navbar height */
+            left: 0;
+            width: 100%;
+            height: calc(100% - 60px); /* Adjust based on navbar height */
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        #backgroundImage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            will-change: transform;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 0.5rem 1rem;
+            background-color: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .nav-logo img {
+            height: 30px;
+        }
+
+        .menu-toggle {
+            display: block;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .side-panel {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(to bottom right, rgba(26, 26, 26, 0.98), rgba(38, 38, 38, 0.98));
+            transition: transform 0.3s ease-in-out;
+            z-index: 1001;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .side-panel.open {
+            transform: translateX(-100%);
+        }
+
+        .close-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .close-panel:hover {
+            transform: rotate(90deg);
+        }
+
+        .panel-content {
+            padding: 60px 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border-radius: 20px;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background">
+        <img src="photos/bd.jpg" alt="Background" id="backgroundImage">
+    </div>
+
+    <header>
+        <nav class="navbar">
+            <a href="home.html" class="nav-logo">
+                <img src="photos/4.webp" alt="Home" class="home">
+            </a>
+            <div class="hamburger">
+                <button id="menuToggle" class="menu-toggle">☰</button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="side-panel">
+        <button class="close-panel">&times;</button>
+        <div class="panel-content">
+            <a href="meme.html" class="nav-link">Memories</a>
+            <a href="muj.html" class="nav-link">Mujaras</a>
+            <a href="flights.html" class="nav-link">Flights</a>
+            <a href="model.html" class="nav-link">Modeling</a>
+            <a href="bucketlist.html" class="nav-link">Bucket List</a>
+            <a href="cutie.html" class="nav-link">Cuties</a>
+            <a href="planes.html" class="nav-link">PLanes</a>
+            <a href="dish.html" class="nav-link">Chetna The Cook</a>
+            <a href="pilot.html" class="nav-link">Pilot</a>
+            <a href="videocall.html" class="nav-link">Distance</a>
+            <a href="reel.html" class="nav-link">Reels</a>
+            <a href="para.html" class="nav-link">Mota Para</a>
+            <a href="figure.html" class="nav-link">Figure</a>
+            <a href="sky.html" class="nav-link">Sky</a>
+        </div>
+    </div>
+
+    <script>
+        const backgroundImage = document.getElementById('backgroundImage');
+        const menuToggle = document.getElementById('menuToggle');
+        const sidePanel = document.querySelector('.side-panel');
+        const closePanel = document.querySelector('.close-panel');
+
+        let scale = 1;
+        let panning = false;
+        let pointX = 0;
+        let pointY = 0;
+        let start = { x: 0, y: 0 };
+
+        function setTransform() {
+            backgroundImage.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+        }
+
+        function onPointerDown(e) {
+            e.preventDefault();
+            panning = true;
+            start = { x: e.clientX - pointX, y: e.clientY - pointY };
+        }
+
+        function onPointerMove(e) {
+            if (!panning) return;
+            pointX = e.clientX - start.x;
+            pointY = e.clientY - start.y;
+            setTransform();
+        }
+
+        function onPointerUp() {
+            panning = false;
+        }
+
+        function onWheel(e) {
+            e.preventDefault();
+            const xs = (e.clientX - pointX) / scale;
+            const ys = (e.clientY - pointY) / scale;
+            const delta = -e.deltaY;
+            scale *= Math.pow(1.001, delta);
+            scale = Math.min(Math.max(0.1, scale), 10);
+            pointX = e.clientX - xs * scale;
+            pointY = e.clientY - ys * scale;
+            setTransform();
+        }
+
+        backgroundImage.addEventListener('mousedown', onPointerDown);
+        backgroundImage.addEventListener('mousemove', onPointerMove);
+        backgroundImage.addEventListener('mouseup', onPointerUp);
+        backgroundImage.addEventListener('mouseleave', onPointerUp);
+        backgroundImage.addEventListener('wheel', onWheel);
+
+        backgroundImage.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                panning = true;
+                start = { x: e.touches[0].clientX - pointX, y: e.touches[0].clientY - pointY };
+            } else if (e.touches.length === 2) {
+                e.preventDefault();
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                const deltaX = touch1.clientX - touch2.clientX;
+                const deltaY = touch1.clientY - touch2.clientY;
+                lastTouchDistance = Math.hypot(deltaX, deltaY);
+                initialScale = scale;
+            }
+        });
+
+        backgroundImage.addEventListener('touchmove', (e) => {
+            if (e.touches.length === 1 && panning) {
+                pointX = e.touches[0].clientX - start.x;
+                pointY = e.touches[0].clientY - start.y;
+                setTransform();
+            } else if (e.touches.length === 2) {
+                e.preventDefault();
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                const deltaX = touch1.clientX - touch2.clientX;
+                const deltaY = touch1.clientY - touch2.clientY;
+                const distance = Math.hypot(deltaX, deltaY);
+                scale = initialScale * (distance / lastTouchDistance);
+                scale = Math.min(Math.max(0.1, scale), 10);
+                setTransform();
+            }
+        });
+
+        backgroundImage.addEventListener('touchend', (e) => {
+            if (e.touches.length < 2) {
+                lastTouchDistance = 0;
+                initialScale = scale;
+            }
+            panning = false;
+        });
+
+        menuToggle.addEventListener('click', () => {
+            sidePanel.classList.add('open');
+        });
+
+        closePanel.addEventListener('click', () => {
+            sidePanel.classList.remove('open');
+        });
+    </script>
+</body>
+
+</html>

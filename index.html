@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        @media screen and (orientation: portrait) {
+            .login-container{
+                position: absolute;
+                top:0;
+            }
+        }
+
+        .navv {
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .login-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-box {
+
+            border-radius: 15px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            backdrop-filter: blur(0px);
+        }
+
+        h1 {
+            color: #ffdd00;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 600;
+            text-align: center;
+
+        }
+
+        form {
+            width: 100%;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: none;
+            border-bottom: 2px solid #ffdd00;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #EA2AA0;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-bottom-color: #45a049;
+            background-color: #ffdd00;
+            text-shadow: 2px 2px 4px #ffdd00;
+        }
+
+        input::placeholder,
+        select {
+            color: #EA2AA0;
+            font-weight: bolder;
+
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #ffdd00;
+            color: #EA2AA0;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        @media screen and (max-width: 768px) {
+            .login-box {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background">
+        <div class="slide active"><img src="login/bapa1.webp" alt="Love Image 1">
+        </div>
+        <div class="slide"><img src="login/bapa2.webp" alt="Love Image 2"></div>
+        <div class="slide"><img src="login/3.webp" alt="Love Image 2"></div>
+        <div class="slide"><img src="login/4.webp" alt="Love Image 2"></div>
+        <div class="slide"><img src="login/5.webp" alt="Love Image 2"></div>
+        <div class="slide"><img src="login/7.webp" alt="Love Image 2"></div>
+    </div>
+    <div class="content">
+        <div class="login-container">
+            <div class="login-box">
+                <h1>Login</h1>
+                <form id="loveLogin">
+                    <input id="loveAnswer" type="text" placeholder="Do you love me , Moksh The Great" required>
+                    <input id="anniversaryDate" type="date" placeholder="Our Meeting Date" required>
+                    <button type="submit" class="abc">Login</button>
+                </form>
+                <p id="errorMessage" style="color: red; display: none;">Please try again.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(nextSlide, 5000); 
+
+        document.querySelector('.abc').addEventListener('click', function(event) {
+            event.preventDefault(); 
+
+            const loveAnswer = document.getElementById('loveAnswer').value.trim().toLowerCase();
+            const anniversaryDate = document.getElementById('anniversaryDate').value;
+
+            const correctAnswer = 'yes';
+            const correctDate = '2022-04-06'; 
+
+            if (loveAnswer === correctAnswer && anniversaryDate === correctDate) {
+                window.location.href = 'home/home.html';
+            } else {
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+
+</html>

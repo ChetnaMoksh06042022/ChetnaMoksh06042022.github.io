@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flights</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Limelight&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Homemade+Apple&family=Limelight&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bad+Script&family=Dancing+Script:wght@400..700&family=Homemade+Apple&family=Limelight&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Bad+Script&family=Dancing+Script:wght@400..700&family=Homemade+Apple&family=Limelight&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Bad+Script&family=Dancing+Script:wght@400..700&family=Homemade+Apple&family=Julius+Sans+One&family=Limelight&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Limelight&family=Dancing+Script:wght@400..700&family=Bad+Script&family=Amatic+SC:wght@400;700&family=Julius+Sans+One&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Julius Sans One', sans-serif;
+            line-height: 1.6;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .main-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            /* 16:9 Aspect Ratio */
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .main {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 2s ease-in-out;
+        }
+
+        .hidden {
+            opacity: 0;
+        }
+
+        .heading {
+            text-align: center;
+            font-size: 2.5em;
+            margin: 20px 0;
+            font-family: 'Limelight', cursive;
+        }
+
+        .container {
+            padding: 0 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .flight-grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+
+        .flight-box {
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .flight-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .flight-box img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .content {
+            padding: 15px;
+        }
+
+        .flight-number {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .date {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .description {
+            font-size: 1em;
+            color: #444;
+            font-family: 'Dancing Script', cursive;
+            overflow-x: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .heading {
+                font-size: 2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .heading {
+                font-size: 1.8em;
+            }
+        }
+
+
+
+
+        /* ... (keep your existing styles) ... */
+
+        .main-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .caption {
+            position: absolute;
+            bottom: 180px;
+            left: 50px;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .captain {
+            font-family: 'Homemade Apple', cursive;
+            font-size: 8vw;
+            margin-bottom: 10px;
+        }
+
+        .name {
+            font-family: "Amatic SC", cursive;
+            font-size: 10vw;
+        }
+
+
+
+        @media (max-width: 768px) {
+            .caption {
+                bottom: 30px;
+                left: 30px;
+            }
+
+            .captain {
+                font-size: 6vw;
+            }
+
+            .name {
+                font-size: 8vw;
+            }
+        }
+
+
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background-color: white;
+            border-radius: 10px;
+            max-width: 935px;
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .popup-image-container {
+            width: 100%;
+            padding-bottom: 100%;
+            /* Creates a square aspect ratio */
+            position: relative;
+            background-color: #f0f0f0;
+        }
+
+        #popup-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            /* This ensures the whole image is visible */
+        }
+
+        .popup-text {
+            padding: 20px;
+        }
+
+        #popup-flight-number {
+            font-size: 1.4em;
+            margin-bottom: 5px;
+        }
+
+        #popup-date {
+            font-size: 0.9em;
+            color: #666;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        #popup-description {
+            font-size: 1em;
+            color: #444;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        #close-popup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #fff;
+            z-index: 2001;
+        }
+
+        @media (min-width: 768px) {
+            .popup-content {
+                flex-direction: row;
+                max-height: 95vh;
+            }
+
+            .popup-image-container {
+                width: 60%;
+                padding-bottom: 60%;
+                /* Maintains square aspect ratio */
+            }
+
+            .popup-text {
+                width: 40%;
+                max-height: 95vh;
+                overflow-y: auto;
+            }
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            /* height: 60px; */
+            /* Adjust based on your desired height */
+            padding: 0.5rem 1rem;
+            background-color: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .nav-logo img {
+            height: 30px;
+        }
+
+        .menu-toggle {
+            display: block;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .side-panel {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(to bottom right, rgba(26, 26, 26, 0.98), rgba(38, 38, 38, 0.98));
+            transition: transform 0.3s ease-in-out;
+            z-index: 1001;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .side-panel.open {
+            transform: translateX(-100%);
+        }
+
+        .close-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .close-panel:hover {
+            transform: rotate(90deg);
+        }
+
+        .panel-content {
+            padding: 60px 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border-radius: 20px;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Fade animations */
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+        }
+
+        .fade-in {
+            opacity: 1;
+            transition: opacity 0.3s ease-in;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="home.html" class="nav-logo">
+                <img src="photos/4.webp" alt="Home" class="home">
+            </a>
+            <div class="hamburger">
+                <button id="menuToggle" class="menu-toggle">☰</button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="side-panel">
+        <button class="close-panel">&times;</button>
+        <div class="panel-content">
+            <a href="meme.html" class="nav-link">Memories</a>
+            <a href="muj.html" class="nav-link">Mujaras</a>
+            <a href="flights.html" class="nav-link">Flights</a>
+            <a href="model.html" class="nav-link">Modeling</a>
+            <a href="bucketlist.html" class="nav-link">Bucket List</a>
+            <a href="cutie.html" class="nav-link">Cuties</a>
+            <a href="planes.html" class="nav-link">PLanes</a>
+            <a href="dish.html" class="nav-link">Chetna The Cook</a>
+            <a href="pilot.html" class="nav-link">Pilot</a>
+            <a href="videocall.html" class="nav-link">Distance</a>
+            <a href="reel.html" class="nav-link">Reels</a>
+            <a href="para.html" class="nav-link">Mota Para</a>
+            <a href="figure.html" class="nav-link">Figure</a>
+            <a href="sky.html" class="nav-link">Sky</a>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <img class="main" src="flights/photos/f4.webp" alt="Flight Image">
+        <div class="caption">
+            <div class="captain">Capt.</div>
+            <div class="name">CHETNA BHATI</div>
+        </div>
+    </div>
+    <main>
+        <h1 class="heading">FLIGHTS</h1>
+        <div class="container">
+            <div class="flight-grid">
+                <!-- Flight boxes go here -->
+                <article class="flight-box">
+                    <img src="flights/photos/12ap.webp" alt="Flight on April 12, 2024" loading="lazy">
+                    <div class="content">
+                        <h2 class="flight-number">N67847</h2>
+                        <time class="date">April 12, 2024</time>
+                        <p class="description">Description</p>
+                    </div>
+                </article>
+
+                <article class="flight-box">
+                    <img src="flights/photos/15ap.webp" alt="Flight on April 15, 2024" loading="lazy">
+                    <div class="content">
+                        <h2 class="flight-number">N89588</h2>
+                        <time class="date">April 15, 2024</time>
+                        <p class="description">Description</p>
+                    </div>
+                </article>
+
+                <article class="flight-box">
+                    <img src="flights/photos/18ap.webp" alt="Flight on April 18, 2024" loading="lazy">
+                    <div class="content">
+                        <h2 class="flight-number">N</h2>
+                        <time class="date">April 18, 2024</time>
+                        <p class="description">Description</p>
+                    </div>
+                </article>
+
+                <article class="flight-box">
+                    <img src="flights/photos/24ap.webp" alt="Flight on April 24, 2024" loading="lazy">
+                    <div class="content">
+                        <h2 class="flight-number">N5105p</h2>
+                        <time class="date">April 24, 2024</time>
+                        <p class="description">Description</p>
+                    </div>
+                </article>
+
+                <article class="flight-box">
+                    <img src="flights/photos/nav.webp" alt="Flight on April 28, 2024" loading="lazy">
+                    <div class="content">
+                        <h2 class="flight-number">N48763</h2>
+                        <time class="date">April 28, 2024</time>
+                        <p class="description">Description</p>
+                    </div>
+                </article>
+
+                <article class="flight-box">
+                    <img src="flights/photos/5may.webp" alt="Flight on May 5, 2024" loading="lazy">
+                    <div class="content">
+                        <h2 class="flight-number">N757jg</h2>
+                        <time class="date">May 5, 2024</time>
+                        <p class="description">Description</p>
+                    </div>
+                </article>
+
+                <article class="flight-box">
+                    <img src="flights/photos/12may.webp" alt="Flight on May 12, 2024" loading="lazy">
+                    <div class="content">
+                        <h2 class="flight-number">N757jg</h2>
+                        <time class="date">May 12, 2024</time>
+                        <p class="description">Description</p>
+                    </div>
+                </article>
+
+                <article class="flight-box">
+                    <img src="flights/photos/18may.webp" alt="Flight on May 18, 2024" loading="lazy">
+                    <div class="content">
+                        <h2 class="flight-number">N89588</h2>
+                        <time class="date">May 18, 2024</time>
+                        <p class="description">Description</p>
+                    </div>
+                </article>
+
+                <article class="flight-box">
+                    <img src="flights/photos/21may.webp" alt="Flight on May 21, 2024" loading="lazy">
+                    <div class="content">
+                        <h2 class="flight-number">N67847</h2>
+                        <time class="date">May 21, 2024</time>
+                        <p class="description">Description</p>
+                    </div>
+                </article>
+
+                <article class="flight-box">
+                    <img src="flights/photos/23may.webp" alt="Flight on May 23, 2024" loading="lazy">
+                    <div class="content">
+                        <h2 class="flight-number">N48763</h2>
+                        <time class="date">May 23, 2024</time>
+                        <p class="description">Description</p>
+                    </div>
+                </article>
+
+                <article class="flight-box">
+                    <img src="flights/photos/26may.webp" alt="Flight on May 26, 2024" loading="lazy">
+                    <div class="content">
+                        <h2 class="flight-number">N67847</h2>
+                        <time class="date">May 26, 2024</time>
+                        <p class="description">Description</p>
+                    </div>
+                </article>
+
+                <article class="flight-box">
+                    <img src="flights/photos/28may.webp" alt="Flight on May 28, 2024" loading="lazy">
+                    <div class="content">
+                        <h2 class="flight-number">N</h2>
+                        <time class="date">May 28, 2024</time>
+                        <p class="description">Description</p>
+                    </div>
+                </article>
+
+                <article class="flight-box">
+                    <img src="flights/photos/10jun.webp" alt="Flight on June 10, 2024" loading="lazy">
+                    <div class="content">
+                        <h2 class="flight-number">N5105p</h2>
+                        <time class="date">June 10, 2024</time>
+                        <p class="description">Description</p>
+                    </div>
+                </article>
+
+                <article class="flight-box">
+                    <img src="flights/photos/13jun.webp" alt="Flight on June 13, 2024" loading="lazy">
+                    <div class="content">
+                        <h2 class="flight-number">N</h2>
+                        <time class="date">June 13, 2024</time>
+                        <p class="description">Description</p>
+                    </div>
+                </article>
+
+                <article class="flight-box">
+                    <img src="flights/photos/16jun.webp" alt="Flight on June 16, 2024" loading="lazy">
+                    <div class="content">
+                        <h2 class="flight-number">N5105p</h2>
+                        <time class="date">June 16, 2024</time>
+                        <p class="description">Description</p>
+                    </div>
+                </article>
+
+                <article class="flight-box">
+                    <img src="flights/photos/21jun.webp" alt="Flight on June 21, 2024" loading="lazy">
+                    <div class="content">
+                        <h2 class="flight-number">N48763</h2>
+                        <time class="date">June 21, 2024</time>
+                        <p class="description">Description</p>
+                    </div>
+                </article>
+
+                <article class="flight-box">
+                    <img src="flights/photos/22jun.webp" alt="Flight on June 22, 2024" loading="lazy">
+                    <div class="content">
+                        <h2 class="flight-number">N67847</h2>
+                        <time class="date">June 22, 2024</time>
+                        <p class="description">Description</p>
+                    </div>
+                </article>
+
+                <article class="flight-box">
+                    <img src="flights/photos/7jul.webp" alt="Flight on July 7, 2024" loading="lazy">
+                    <div class="content">
+                        <h2 class="flight-number">N93397</h2>
+                        <time class="date">July 7, 2024</time>
+                        <p class="description">First night cross country</p>
+                    </div>
+                </article>
+
+                <article class="flight-box">
+                    <img src="flights/photos/7jul1.webp" alt="Flight on July 7, 2024" loading="lazy">
+                    <div class="content">
+                        <h2 class="flight-number">N93397</h2>
+                        <time class="date">July 7, 2024</time>
+                        <p class="description">7 Landings</p>
+                    </div>
+                </article>
+
+                <article class="flight-box">
+                    <img src="flights/photos/12jul.webp" alt="Flight on July 12, 2024" loading="lazy">
+                    <div class="content">
+                        <h2 class="flight-number">N757jg</h2>
+                        <time class="date">July 12, 2024</time>
+                        <p class="description">Practise flight forming perfect circel and doing all the manuvers</p>
+                    </div>
+                </article>
+
+                <article class="flight-box">
+                    <img src="flights/photos/15jul.webp" alt="Flight on July 15, 2024" loading="lazy">
+                    <div class="content">
+                        <h2 class="flight-number">N67847</h2>
+                        <time class="date">July 15, 2024</time>
+                        <p class="description">9 Landings in total and in that 3 were small capsules</p>
+                    </div>
+                </article>
+
+                <article class="flight-box">
+                    <img src="flights/photos/18jul.webp" alt="Flight on July 18, 2024" loading="lazy">
+                    <div class="content">
+                        <h2 class="flight-number">N757jg</h2>
+                        <time class="date">July 18, 2024</time>
+                        <p class="description">Did total 6 landings good one 4 on one place 1 on another place and 1 in
+                            the last to end</p>
+                    </div>
+                </article>
+
+                <article class="flight-box">
+                    <img src="flights/photos/20jul.webp" alt="Flight on July 20, 2024" loading="lazy">
+                    <div class="content">
+                        <h2 class="flight-number">N5105p</h2>
+                        <time class="date">July 20, 2024</time>
+                        <p class="description">The one you tired yorself for landings and learnt something good</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <div class="popup-image-container">
+                <img id="popup-image" src="" alt="Flight Image">
+            </div>
+            <div class="popup-text">
+                <h2 id="popup-flight-number"></h2>
+                <time id="popup-date"></time>
+                <p id="popup-description"></p>
+            </div>
+            <button id="close-popup" style="color: #333;">&times;</button>
+        </div>
+    </div>
+    <script>
+        let ar = ['flights/photos/f1.webp', 'flights/photos/f2.webp', 'flights/photos/f3.webp', 'flights/photos/f4.webp'];
+        let i = 0;
+        const img = document.querySelector('.main');
+
+        setInterval(() => {
+            img.classList.add('hidden');
+            setTimeout(() => {
+                img.setAttribute('src', ar[i]);
+                img.classList.remove('hidden');
+                i = (i + 1) % ar.length;
+            }, 2000);
+        }, 10000);
+
+        const menuToggle = document.getElementById('menuToggle');
+        const sidePanel = document.querySelector('.side-panel');
+        const closePanel = document.querySelector('.close-panel');
+
+        menuToggle.addEventListener('click', () => {
+            sidePanel.classList.add('open');
+        });
+
+        closePanel.addEventListener('click', () => {
+            sidePanel.classList.remove('open');
+        });
+
+
+        const popup = document.getElementById('popup');
+        const popupImage = document.getElementById('popup-image');
+        const popupFlightNumber = document.getElementById('popup-flight-number');
+        const popupDate = document.getElementById('popup-date');
+        const popupDescription = document.getElementById('popup-description');
+        const closePopup = document.getElementById('close-popup');
+
+        function openPopup(image, flightNumber, date, description) {
+            popupImage.src = image;
+            popupFlightNumber.textContent = flightNumber;
+            popupDate.textContent = date;
+            popupDescription.textContent = description;
+            popup.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when popup is open
+        }
+
+        closePopup.addEventListener('click', () => {
+            popup.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
+        });
+
+        // Close popup when clicking outside the content
+        popup.addEventListener('click', (e) => {
+            if (e.target === popup) {
+                popup.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Add click event listeners to all flight boxes
+        const flightBoxes = document.querySelectorAll('.flight-box');
+        flightBoxes.forEach(box => {
+            box.addEventListener('click', () => {
+                const image = box.querySelector('img').src;
+                const flightNumber = box.querySelector('.flight-number').textContent;
+                const date = box.querySelector('.date').textContent;
+                const description = box.querySelector('.description').textContent;
+                openPopup(image, flightNumber, date, description);
+            });
+        });
+    </script>
+</body>
+
+</html>

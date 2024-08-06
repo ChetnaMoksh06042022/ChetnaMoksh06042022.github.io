@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bucket List Challenge</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Dancing+Script:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Dancing script', cursive, sans-serif;
+            background: url('list/1.webp') no-repeat center center fixed;
+            background-size: cover;
+            color: #e0e0e0;
+            cursor: default;
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        body::-webkit-scrollbar {
+            width: 0px;
+        }
+
+        @media screen and (orientation: portrait) {
+            body {
+                background: url('list/bucket.webp') no-repeat center center fixed;
+                background-size: cover;
+            }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 60px auto 0;
+            background-color: rgba(30, 30, 30, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .container::-webkit-scrollbar {
+            width: 0px;
+        }
+
+        h1 {
+            font-family: 'Brush Script MT', cursive;
+            color: #ff7f7f;
+            font-size: 3em;
+            margin-bottom: 0;
+            text-align: center;
+        }
+
+        .list-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .list-column {
+            flex: 0 0 48%;
+        }
+
+        .list-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-container {
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .checkmark {
+            height: 25px;
+            width: 25px;
+            background-color: transparent;
+            border: 2px solid #555;
+            margin-right: 10px;
+            display: inline-block;
+        }
+
+        .checkbox-container.checked .checkmark:after {
+            content: '✓';
+            display: block;
+            text-align: center;
+            font-size: 70px;
+            line-height: 25px;
+            color: #ff7f7f;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 0.5rem 1rem;
+            background-color: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .nav-logo img {
+            height: 30px;
+        }
+
+        .menu-toggle {
+            display: block;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            padding-right: 30px;
+        }
+
+        .side-panel {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(to bottom right, rgba(26, 26, 26, 0.98), rgba(38, 38, 38, 0.98));
+            transition: transform 0.3s ease-in-out;
+            z-index: 1001;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .side-panel.open {
+            transform: translateX(-100%);
+        }
+
+        .close-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .close-panel:hover {
+            transform: rotate(90deg);
+        }
+
+        .panel-content {
+            padding: 60px 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border-radius: 20px;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="home.html" class="nav-logo">
+                <img src="photos/4.webp" alt="Home" class="home">
+            </a>
+            <div class="hamburger">
+                <button id="menuToggle" class="menu-toggle">☰</button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="side-panel">
+        <button class="close-panel">&times;</button>
+        <div class="panel-content">
+            <a href="meme.html" class="nav-link">Memories</a>
+            <a href="muj.html" class="nav-link">Mujaras</a>
+            <a href="flights.html" class="nav-link">Flights</a>
+            <a href="model.html" class="nav-link">Modeling</a>
+            <a href="bucketlist.html" class="nav-link">Bucket List</a>
+            <a href="cutie.html" class="nav-link">Cuties</a>
+            <a href="planes.html" class="nav-link">PLanes</a>
+            <a href="dish.html" class="nav-link">Chetna The Cook</a>
+            <a href="pilot.html" class="nav-link">Pilot</a>
+            <a href="videocall.html" class="nav-link">Distance</a>
+            <a href="reel.html" class="nav-link">Reels</a>
+            <a href="para.html" class="nav-link">Mota Para</a>
+            <a href="figure.html" class="nav-link">Figure</a>
+            <a href="sky.html" class="nav-link">Sky</a>
+        </div>
+
+    </div>
+
+    <div class="container">
+        <h1>Our Bucket List</h1>
+        <div class="list-container">
+            <div class="list-column" id="column1"></div>
+            <div class="list-column" id="column2"></div>
+        </div>
+    </div>
+
+    <script>
+        const bucketListItems = [
+            "Amarnath yatra or any yatra in north",
+            "lonavala trip",
+            "Arcade game date",
+            "pani puri competition",
+            "Go karting",
+            "Water Park Wet and Joy",
+            "Chnadratal lake",
+            "badminton",
+            "Barish mein Bhigana",
+            "Holi",
+            "Laser tag",
+            "trekking"
+        ];
+
+        const menuToggle = document.getElementById('menuToggle');
+        const sidePanel = document.querySelector('.side-panel');
+        const closePanel = document.querySelector('.close-panel');
+        const column1 = document.getElementById('column1');
+        const column2 = document.getElementById('column2');
+
+        function populateList() {
+            const midPoint = Math.ceil(bucketListItems.length / 2);
+            bucketListItems.forEach((item, index) => {
+                const listItem = document.createElement('div');
+                listItem.className = 'list-item';
+                listItem.innerHTML = `
+                    <label class="checkbox-container">
+                        <span class="checkmark"></span>
+                        ${item}
+                    </label>
+                `;
+                if (index < midPoint) {
+                    column1.appendChild(listItem);
+                } else {
+                    column2.appendChild(listItem);
+                }
+            });
+        }
+
+        function saveState() {
+            const checkedItems = Array.from(document.querySelectorAll('.checkbox-container.checked'))
+                .map(item => item.textContent.trim());
+            localStorage.setItem('bucketListChecked', JSON.stringify(checkedItems));
+        }
+
+        function loadState() {
+            const checkedItems = JSON.parse(localStorage.getItem('bucketListChecked')) || [];
+            document.querySelectorAll('.checkbox-container').forEach(container => {
+                if (checkedItems.includes(container.textContent.trim())) {
+                    container.classList.add('checked');
+                }
+            });
+        }
+
+        menuToggle.addEventListener('click', () => sidePanel.classList.add('open'));
+        closePanel.addEventListener('click', () => sidePanel.classList.remove('open'));
+
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.checkbox-container')) {
+                e.target.closest('.checkbox-container').classList.toggle('checked');
+                saveState();
+            }
+        });
+
+        window.addEventListener('load', () => {
+            populateList();
+            loadState();
+        });
+    </script>
+</body>
+
+</html>

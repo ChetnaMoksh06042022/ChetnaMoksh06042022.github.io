@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo and Video Gallery</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            background-color: #f0f0f0;
+            scrollbar-width: none;
+            /* For Firefox */
+            -ms-overflow-style: none;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+            /* For Chrome, Safari, and Opera */
+        }
+
+        .container1 {
+            display: flex;
+            justify-content: center;
+            width: 70%;
+            max-width: 75%;
+            gap: 5px;
+        }
+
+        .column {
+            width: 33.33%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .media {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            object-fit: cover;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #column2 {
+            margin-top: calc(-16.67% - 2.5px);
+        }
+
+        #column3 {
+            margin-top: calc(-8.33% - 1.25px);
+        }
+
+        .fullscreen-view {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .fullscreen-media {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 0.5rem 1rem;
+            background-color: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .nav-logo img {
+            height: 30px;
+        }
+
+        .menu-toggle {
+            display: block;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            padding-right: 30px;
+        }
+
+        .side-panel {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(to bottom right, rgba(26, 26, 26, 0.98), rgba(38, 38, 38, 0.98));
+            transition: transform 0.3s ease-in-out;
+            z-index: 1001;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .side-panel.open {
+            transform: translateX(-100%);
+        }
+
+        .close-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .close-panel:hover {
+            transform: rotate(90deg);
+        }
+
+        .panel-content {
+            padding: 60px 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border-radius: 20px;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container1">
+        <div class="column" id="column1"></div>
+        <div class="column" id="column2"></div>
+        <div class="column" id="column3"></div>
+    </div>
+    <header>
+        <nav class="navbar">
+            <a href="home.html" class="nav-logo">
+                <img src="photos/4.webp" alt="Home" class="home">
+            </a>
+            <div class="hamburger">
+                <button id="menuToggle" class="menu-toggle">☰</button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="side-panel">
+        <button class="close-panel">&times;</button>
+        <div class="panel-content">
+            <a href="meme.html" class="nav-link">Memories</a>
+            <a href="muj.html" class="nav-link">Mujaras</a>
+            <a href="flights.html" class="nav-link">Flights</a>
+            <a href="model.html" class="nav-link">Modeling</a>
+            <a href="bucketlist.html" class="nav-link">Bucket List</a>
+            <a href="cutie.html" class="nav-link">Cuties</a>
+            <a href="planes.html" class="nav-link">PLanes</a>
+            <a href="dish.html" class="nav-link">Chetna The Cook</a>
+            <a href="pilot.html" class="nav-link">Pilot</a>
+            <a href="videocall.html" class="nav-link">Distance</a>
+            <a href="reel.html" class="nav-link">Reels</a>
+            <a href="para.html" class="nav-link">Mota Para</a>
+            <a href="figure.html" class="nav-link">Figure</a>
+            <a href="sky.html" class="nav-link">Sky</a>
+
+        </div>
+    </div>
+    <script>
+        const media = [
+            {
+                "type": "video",
+                "src": "reels\\1000001506.mp4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\1000001507.mp4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\1000001517.mp4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\1000032292.mp4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\1000032377.mp4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\1607.mp4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\1608.mp4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\20153.mp4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\4884.mp4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\4888.mp4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\4988.mp4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\4992.mp4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\5861.mp4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\5865.mp4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\5869.mp4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\5873.mp4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\5889.mp4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\5895.mp4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\5908.mp4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\5c93f429-75fb-4e01-bea9-e1887bbd81ca.mp4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\IMG_0159.MOV"
+            },
+            {
+                "type": "video",
+                "src": "reels\\IMG_0233.MOV"
+            },
+            {
+                "type": "video",
+                "src": "reels\\IMG_0236.MOV"
+            },
+            {
+                "type": "video",
+                "src": "reels\\IMG_0244.MOV"
+            },
+            {
+                "type": "video",
+                "src": "reels\\IMG_0245.MOV"
+            },
+            {
+                "type": "video",
+                "src": "reels\\IMG_0246.MOV"
+            },
+            {
+                "type": "video",
+                "src": "reels\\IMG_0279.MOV"
+            },
+            {
+                "type": "video",
+                "src": "reels\\IMG_1476.MP4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\IMG_1670.MOV"
+            },
+            {
+                "type": "video",
+                "src": "reels\\IMG_1794.MOV"
+            },
+            {
+                "type": "video",
+                "src": "reels\\IMG_4567.MOV"
+            },
+            {
+                "type": "video",
+                "src": "reels\\IMG_4737.MP4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\IMG_6121.MOV"
+            },
+            {
+                "type": "video",
+                "src": "reels\\IMG_6550.MP4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\IMG_6551.MP4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\IMG_6575.MP4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\IMG_6577.MP4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\IMG_7213.MOV"
+            },
+            {
+                "type": "video",
+                "src": "reels\\IMG_7221.MOV"
+            },
+            {
+                "type": "video",
+                "src": "reels\\IMG_7477.MP4"
+            },
+            {
+                "type": "video",
+                "src": "reels\\IMG_7487.MOV"
+            },
+            {
+                "type": "video",
+                "src": "reels\\IMG_7790.MP4"
+            }
+        ];
+
+        let currentIndex = 0;
+        let loading = false;
+
+        function createMediaElement(item) {
+            if (item.type === 'image') {
+                const img = new Image();
+                img.src = item.src;
+                img.classList.add('media');
+                img.loading = 'lazy';
+                img.addEventListener('click', () => showFullscreen(item));
+                return img;
+            } else if (item.type === 'video') {
+                const video = document.createElement('video');
+                video.src = item.src;
+                video.classList.add('media');
+                video.loop = true;
+                video.muted = true;
+                video.playsInline = true;
+                video.autoplay = true;
+                video.addEventListener('loadedmetadata', () => {
+                    video.play().catch(e => console.log("Autoplay prevented:", e));
+                });
+                video.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showFullscreen(item);
+                });
+                return video;
+            }
+        }
+
+        function loadMedia() {
+            if (loading || currentIndex >= media.length) return;
+            loading = true;
+
+            const columns = [
+                document.getElementById('column1'),
+                document.getElementById('column2'),
+                document.getElementById('column3')
+            ];
+
+            for (let i = 0; i < 6 && currentIndex < media.length; i++) {
+                const mediaElement = createMediaElement(media[currentIndex]);
+                columns[currentIndex % 3].appendChild(mediaElement);
+                currentIndex++;
+            }
+
+            loading = false;
+        }
+
+        function showFullscreen(item) {
+            const fullscreenView = document.createElement('div');
+            fullscreenView.classList.add('fullscreen-view');
+
+            const fullscreenMedia = item.type === 'image'
+                ? new Image()
+                : document.createElement('video');
+
+            fullscreenMedia.src = item.src;
+            fullscreenMedia.classList.add('fullscreen-media');
+
+            if (item.type === 'video') {
+                fullscreenMedia.controls = true;
+                fullscreenMedia.loop = true;
+                fullscreenMedia.muted = false;
+                fullscreenMedia.playsInline = true;
+                fullscreenMedia.play().catch(e => console.log("Fullscreen autoplay prevented:", e));
+            }
+
+            fullscreenView.appendChild(fullscreenMedia);
+            fullscreenView.addEventListener('click', (e) => {
+                if (e.target === fullscreenView) {
+                    document.body.removeChild(fullscreenView);
+                }
+            });
+
+            document.body.appendChild(fullscreenView);
+        }
+
+        function isBottomOfPage() {
+            return (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 200;
+        }
+
+        function throttle(func, limit) {
+            let inThrottle;
+            return function () {
+                const args = arguments;
+                const context = this;
+                if (!inThrottle) {
+                    func.apply(context, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            }
+        }
+
+        window.addEventListener('scroll', throttle(() => {
+            if (isBottomOfPage()) {
+                loadMedia();
+            }
+        }, 200));
+
+        loadMedia();
+        const menuToggle = document.getElementById('menuToggle');
+        const sidePanel = document.querySelector('.side-panel');
+        const closePanel = document.querySelector('.close-panel');
+
+        menuToggle.addEventListener('click', () => {
+            sidePanel.classList.add('open');
+        });
+
+        closePanel.addEventListener('click', () => {
+            sidePanel.classList.remove('open');
+        });
+    </script>
+</body>
+
+</html>
