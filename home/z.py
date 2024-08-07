@@ -1,6 +1,6 @@
 import os
 import json
-c = 'cafe cali'
+c = 'dishes'
 def get_media_type(file_extension):
     image_extensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif' , '.jfif']
     video_extensions = ['.mp4', '.webm', '.avi', '.mov']
@@ -24,13 +24,13 @@ def create_media_array(root_dir):
             media_type = get_media_type(file_extension)
             
             if media_type:
-                media_item = { 'type': media_type, 'src': "memo\\"+c+"\\"+relative_path.replace('\\', '\\\\')}
+                media_item = { 'type': media_type, 'src': ""+c+"\\"+relative_path.replace('\\', '\\\\')}
                 media_array.append(media_item)
 
     return media_array
 
 def main():
-    root_directory = 'D:\VS Code\Web Dev\love\ChetnaMoksh06042022.github.io\home\memo\\'+c
+    root_directory = 'D:\VS Code\Web Dev\love\ChetnaMoksh06042022.github.io\home\\'+c
     
     if not os.path.isdir(root_directory):
         print("The specified directory does not exist.")
