@@ -1,6 +1,6 @@
 import os
 import json
-c = 'dishes'
+c = 'aero'
 def get_media_type(file_extension):
     image_extensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif' , '.jfif']
     video_extensions = ['.mp4', '.webm', '.avi', '.mov']
